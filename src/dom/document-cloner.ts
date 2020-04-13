@@ -92,9 +92,14 @@ export class DocumentCloner {
                 return Promise.reject(`Error finding the ${this.referenceElement.nodeName} in the cloned document`);
             }
 
-            if (documentClone.fonts && documentClone.fonts.ready) {
+            const isIos = /iphone/.test(navigator.userAgent.toLowerCase());           
+            if (documentClone.fonts && documentClone.fonts.ready && !isIos) {
                 await documentClone.fonts.ready;
             }
+            
+            // if (documentClone.fonts && documentClone.fonts.ready) {
+            //     await documentClone.fonts.ready;
+            // }
 
             if (typeof onclone === 'function') {
                 return Promise.resolve()
